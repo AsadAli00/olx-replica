@@ -1,38 +1,118 @@
-.App {
-  text-align: center;
+.color{ color: #002f34;}
+.header{
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: 70px;
+    z-index: 9;
+    background: #f1f1f1;
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,.1);
+    padding: 0px 40px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.header .logo{
+    width: 50px;
+    margin-right: 20px;
+}
+.header .location{
+    background: #fff;
+    border: 2px solid #002f34;
+    border-radius: 5px;
+    height: 45px;
+}
+.header .location .ico{
+  margin: 5px;
+}
+.header .location .label{
+    flex: 1;
+    padding: 5px;
+    border: 0px;
+}
+.header .location .arrow{
+    margin: 5px;
+    background: #fff;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.header .search{
+    background: #fff;
+    border: 2px solid #002f34;
+    border-radius: 5px;
+    flex: 2;
+    margin: 0px 20px;
+    height: 45px;
+}
+.header .search .query{
+    flex: 1;
+    margin: 10px;
+    border: 0px;
+}
+.header .search .go-head{
+    height: 45px;
+    width: 60px;
+    background-color: #002f34;
+    border-radius: 5px;
+    text-align: center;
+}
+.header .search  .go{
+    margin: 5px;
+    height: 35px;
+    color: #fff;
+ }
+.header .search  .go:hover{ }
+
+
+.header .actions{ 
+    flex: 1;
+    max-width: 170px;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+.header .actions a{
+    margin: 0px 20px 10px 0px;
+    color: #002f34;
+    margin-right: 15px;
+}
+.header .actions .sell{
+    padding: 8px 15px;
+    border: 3px #ffa500 solid;
+    color:  #002f34;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 30px;
+    box-shadow: 0px 3px 3px #a9a9a9;
+}
+.header .actions .ico{
+    font-size: 22px;
+}
+.header .actions .sell:hover{}
+
+.hnav{
+    top: 70px;
+    left: 0px;
+    right: 0px;
+    height: 50px;
+    z-index: 8;
+    background: #ffff;
+    box-shadow: 0 2px 2px rgb(218 218 218 / 36%);
+    padding: 0px 40px;
+}
+.hnav .view-cates{ 
+    border: 0px;
+    padding: 10px 15px;
+    background: #fff;
+}
+.hnav .view-cates .arrow{ 
+    margin: 5px;
+    background: #fff;
+}
+.hnav .view-cates:hover{}
+.hnav a{
+    padding: 15px;
+    margin-right: 2px;
+}
+.hnav a:hover{
+    padding: 15px;
+    margin-right: 2px;
+    color: #00a49f;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
