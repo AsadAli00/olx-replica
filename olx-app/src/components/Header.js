@@ -46,7 +46,7 @@ class Header extends React.Component {
 
                 <div className="hnav fixed flex aic">
                     <button className="view-cates flex aic color">
-                        <h2 className="s16 fontb">ALL CATEGORIES</h2>
+                        <h2 className="s14 fontb">ALL CATEGORIES</h2>
                         <KeyboardArrowDownIcon className="arrow" style={{ fontSize: 30 }} />
                     </button>
                     {
