@@ -1,19 +1,18 @@
 const INITIAL_STATE = {
-    list: [],
+    list: [<p></p>],
     loading: true,
 
     
 }
 
 
-
-export default (state = INITIAL_STATE,action) =>{
+export default (state =INITIAL_STATE, action)=>{
     console.log("app==>",action);
     switch (action.type){
         case "set_Data":
             return({
                 ...state,
-                list: [...state,action.data]
+                list: [action.data]
             })
         default:
             return state

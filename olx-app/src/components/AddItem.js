@@ -12,12 +12,12 @@ class AddItem extends Component {
         if ("placeholder" in this.props) {
             return (
                 <div className="ad-item">
-                    <div className="poster placeholder" />
-                    <div className="title placeholder" />
-                    <div className="tagline placeholder" />
-                    <div className="ftr flex">
-                        <div className="Location placeholder" />
-                        <div className="stamp placeholder" />
+                    <div className="poster anim placeholder" />
+                    <div className="title anim placeholder" />
+                    <div className="tagline anim placeholder" />
+                    <div className="ftr anim flex">
+                        <div className="location anim placeholder" />
+                        <div className="stamp anim placeholder" />
                     </div>
                 </div>
             )

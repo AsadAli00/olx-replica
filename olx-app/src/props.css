@@ -9,10 +9,12 @@ input, button, textarea, select{outline: none ;}
 
 .flex{display: flex;}
 .aic{align-items: center;}
-
+.jcc{justify-content: center;}
 button{cursor: pointer;}
 .bl{display: block;}
 .ibl{display: inline-block;}
+
+.flex-col{flex-direction: column;}
 
 
 .font{
@@ -45,3 +47,15 @@ button{cursor: pointer;}
 .noulh:hover{text-decoration: underline;}
 
 .cff{color: #ffffff;}
+
+.anim{transition: all 0.2s linear 0s;}
+.placeholder{
+    background: #ccc !important;
+    animation: placeholder 1s infinite ease-in-out;
+}
+
+
+@keyframes placeholder{
+    50%{opacity: 0.1;}
+    100%{opacity: 1;}
+}

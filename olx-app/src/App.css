@@ -117,4 +117,141 @@
     margin-right: 2px;
     color: #00a49f;
 }
+.hclr{
+    height: 120px;
+}
+.ad-list{
+    flex-wrap: wrap;
+}
+.ad-item{
+    min-height: 270px;
+    min-width: 266px;
+    max-height: 270px;
+    max-width: 266px;
+    flex-basis: 20%;
+    margin: 8px;
+    border: 1px solid #ddd;
+    padding: 8px; 
+}
+.ad-item .poster{
+    height: 160px;
+}
+.ad-item .poster.placeholder{}
+.ad-item .title{
+    margin: 10px 0px;
+}
+.ad-item .title.placeholder{ 
+    height: 25px;
+    width: 75%;
+}
+.ad-item .tagline{
+
+}
+.ad-item .tagline.placeholder{
+    height: 20px;
+    width: 90%;
+}
+.ad-item .ftr{
+    margin-top: 15px;
+}
+.ad-item .ftr .location{
+    flex: 2;
+}
+.ad-item .ftr .location.placeholder{
+    height: 12px;
+    max-width: 100px ;
+}
+.ad-item .ftr.stamp{
+    flex: 1;
+
+}
+.ad-item .ftr .stamp.placeholder{
+    height: 0px;
+}
+
+.load-more{
+    margin:40px auto;
+    display: table;
+    color: #002f34;
+    border: 2px solid #002f34;
+    background: #fff;
+    padding:12px 10px;
+    border-radius: 5px;
+}
+.load-more:hover{
+    box-shadow: inset 0px 0px 0px 3px;
+}
+
+.app-ribbon{
+    background: #f7f7f7;
+    padding: 0px 80px;
+    border-top: 1px solid #ccc;
+}
+.app-ribbon img{}
+.app-ribbon .img img{
+}
+.app-ribbon .meta{
+}
+
+.app-ribbon .meta .title{
+    padding: 10px 10px 10px 10px;
+}
+.app-ribbon .meta .slogan{
+    padding: 10px 10px 10px 10px ;
+    font-weight: 500; 
+}
+.app-ribbon .links{ 
+    margin-left: 25px;
+}
+.app-ribbon .links .title{
+    margin-bottom: 20px;
+}
+.app-ribbon .links .as{
+}
+.app-ribbon .links a{
+    margin: 0px 10px 0px 0px;
+}
+.app-ribbon .links a:hover{}
+.app-ribbon .links a img{
+    width: 128px;
+    height: 40px;
+}
+.break{
+    width: 2px;
+    margin: 0px auto;
+    background-color: rgba(0, 47, 52, 0.2);
+    border: 0px solid rgba(0, 47, 52, 0.2);
+    height: 136px;
+}
+.footer{
+    background: #ebeeef;
+    padding: 0px 80px;
+    border-top: 1px solid #ccc;
+}
+.footer .block{
+    flex: 1;
+    padding: 20px 0px 50px 0px;
+   
+}
+.footer .block .title{
+    margin-bottom: 10px;
+}
+.footer .block a{
+    line-height: 1.8;
+}
+
+.footer .block .social-icon{}
+.footer .block .social-icon a{
+    margin: 0px 10px 0px 0px;
+}
+.footer .block .as{
+
+}
+.footer .block .as a{
+    margin: 0px 10px 0px 0px;
+}
+.footer .block .as a img{
+    width: 128px;
+    height: 40px;
+}
 

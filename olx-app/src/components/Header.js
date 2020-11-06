@@ -57,6 +57,7 @@ class Header extends React.Component {
                         })
                     }
                 </div>
+                <div className="hclr" />
             </React.Fragment>
 
 
