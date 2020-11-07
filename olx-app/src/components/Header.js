@@ -5,6 +5,7 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import AddIcon from '@material-ui/icons/Add';
 import { Link } from 'react-router-dom'
 
+
 class Header extends React.Component {
     render() {
         const nav = [
@@ -19,7 +20,7 @@ class Header extends React.Component {
     
         return (
             <React.Fragment>
-                <div className="header fixed flex aic">
+                <div className="header navbar  navbar-expand-lg navbar-expand-md fixed flex aic jcc">
                     <div className="logo">
                         <img src={logo} alt="logo" width="50px" />
                     </div>
@@ -28,7 +29,7 @@ class Header extends React.Component {
                         <input className="label s15 font" placeholder="your Location" value="pakistan" />
                         <KeyboardArrowDownIcon className="arrow" style={{ fontSize: 30 }} />
                     </div>
-                    <div className="search flex rel aic">
+                    <div className="search collapse navbar-collapse" id="navbarText flex rel aic">
                         <input type="text" placeholder="Find Cars, Mobile Phones and More...." className="query s15 font" />
                         <div className="go-head">
                             <SearchIcon className="go" style={{ fontSize: 30 }} />

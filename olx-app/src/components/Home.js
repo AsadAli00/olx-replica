@@ -5,6 +5,11 @@ import AddItem from './AddItem'
 import appRibbon from '../images/app-ribbon.png'
 import linkImg1 from '../images/link-img1.png'
 import linkImg2 from '../images/link-img2.png'
+
+
+
+
+
 class Home extends Component {
 
     // constructor(){
@@ -34,6 +39,11 @@ class Home extends Component {
     render() {
         return (
             <React.Fragment>
+                <div className="banner">
+                    <div className="bannerImage">
+
+                    </div>
+                </div>
                 <div className="home-page">
                     <div className="ad-list flex jcc">
                         {this.props.list}
