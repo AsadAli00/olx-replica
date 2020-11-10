@@ -16,7 +16,7 @@ button{cursor: pointer;}
 
 .flex-col{flex-direction: column;}
 
-
+.cb{color: #000000;}
 .font{
     font-family: 'Roboto', sans-serif;
     font-weight: normal;
@@ -47,7 +47,14 @@ button{cursor: pointer;}
 .noulh:hover{text-decoration: underline;}
 
 .cff{color: #ffffff;}
+.tc{
+    color: #002f34;
+}
 
+.tac{
+    text-align: center;
+}
+.tal{text-align: left;}
 .anim{transition: all 0.2s linear 0s;}
 .placeholder{
     background: #ccc !important;
