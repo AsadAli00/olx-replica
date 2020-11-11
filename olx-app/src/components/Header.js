@@ -14,6 +14,9 @@ import banner1 from '../images/loginbanner2.png';
 import banner3 from '../images/loginbanner3.png';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
+import CloseIcon from '@material-ui/icons/Close';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import firebase from '../config/firebase'
 
 
 
@@ -24,6 +27,8 @@ class Header extends React.Component {
             locationValue: "Karachi",
             anchorEl: "",
             loginModel: false,
+            PhoneModel: false,
+            emailModel: false,
         }
     }
     render() {
@@ -55,7 +60,7 @@ class Header extends React.Component {
         }
 
 
-        const handleOpen = () => {
+        const handleLoginOpen = () => {
             this.setState({
                 ...this.state,
                 loginModel: true,
@@ -68,94 +73,199 @@ class Header extends React.Component {
                 loginModel: false,
             })
         };
+        const handlePhoneOpen = () => {
+            this.setState({
+                ...this.state,
+                PhoneModel: true,
+            })
+        };
+
+        const handleEmailOpen = () => {
+            this.setState({
+                ...this.state,
+                emailModel: true,
+            })
+        };
+        const handlePhoneClose = () => {
+            this.setState({
+                ...this.state,
+                PhoneModel: false,
+            })
+        };
+        const handleEmailClose = () => {
+            this.setState({
+                ...this.state,
+                emailModel: false,
+            })
+        };
+
+        const PhoneLogin= () =>{
+        }
+
 
         const body = (
-            <div className="login flex aic jcc">
-                <div
-                    id="carouselExampleCaptions"
-                    className="carousel font s15"
-                    data-ride="carousel"
-                >
-                    <ol className="carousel-indicators">
-                        <li
-                            data-target="#carouselExampleCaptions"
-                            data-slide-to={0}
-                            className="active"
-                        ></li>
-                        <li data-target="#carouselExampleCaptions" data-slide-to={1} />
-                        <li data-target="#carouselExampleCaptions" data-slide-to={2} />
-                    </ol>
-                    <div className="carousel-inner">
-                        <div className="carousel-item  active">
-                        <img src={banner1} className="d-block w-100" alt="..." />
-                            <div className="caption s13 font flex color">
-                                <h5 className="s15">Help make OLX safer place to buy and sell</h5>
-                            </div>
-                        </div>
-                        <div className="carousel-item">
-                            
-                            <img src={banner2} className="d-block w-100" alt="slider 1" />
-                            <div className="caption s13 font flex color aic">
-                                <h5 className="s15">Contact and Close deals faster</h5>
-                            </div>
-                        </div>
-                        <div className="carousel-item">
-                            <img src={banner3} className="d-block w-100" alt="..." />
-                            <div className="caption s13 font flex color">
-                                <h5 className="s15">Save all your favorite items in one place</h5>
-                            </div>
-                        </div>
+            <React.Fragment>
+                <div className="login flex">
+                    <div className="close-btn">
+                        <CloseIcon onClick={handleLoginClose} />
                     </div>
-                    <a
-                        className="carousel-control-prev"
-                        href="#carouselExampleCaptions"
-                        role="button"
-                        data-slide="prev"
+                    <div
+                        id="carouselExampleCaptions"
+                        className="carousel font s15"
+                        data-ride="carousel"
                     >
-                        <KeyboardArrowLeftIcon className="arrow" />
-                        <span className="sr-only">Previous</span>
-                    </a>
-                    <a
-                        className="carousel-control-next"
-                        href="#carouselExampleCaptions"
-                        role="button"
-                        data-slide="next"
-                    >
-                        <KeyboardArrowRightIcon className="arrow" />
-                        <span className="sr-only">Next</span>
-                    </a>
-                </div>
-                <div className="login-btn flex aic">
-                    <div className="flex aic jcc color">
-                        <button className="fontr b anim s16">
-                            Continue with Phone
+                        <ol className="carousel-indicators">
+                            <li
+                                data-target="#carouselExampleCaptions"
+                                data-slide-to={0}
+                                className="active"
+                            ></li>
+                            <li data-target="#carouselExampleCaptions" data-slide-to={1} />
+                            <li data-target="#carouselExampleCaptions" data-slide-to={2} />
+                        </ol>
+                        <div className="carousel-inner">
+                            <div className="carousel-item  active">
+                                <img src={banner1} className="d-block w-100" alt="..." />
+                                <div className="caption s13 font flex color">
+                                    <h5 className="s15">Help make OLX safer place to buy and sell</h5>
+                                </div>
+                            </div>
+                            <div className="carousel-item">
+
+                                <img src={banner2} className="d-block w-100" alt="slider 1" />
+                                <div className="caption s13 font flex color aic">
+                                    <h5 className="s15">Contact and Close deals faster</h5>
+                                </div>
+                            </div>
+                            <div className="carousel-item">
+                                <img src={banner3} className="d-block w-100" alt="..." />
+                                <div className="caption s13 font flex color">
+                                    <h5 className="s15">Save all your favorite items in one place</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <a
+                            className="carousel-control-prev"
+                            href="#carouselExampleCaptions"
+                            role="button"
+                            data-slide="prev"
+                        >
+                            <KeyboardArrowLeftIcon className="arrow" />
+                            <span className="sr-only">Previous</span>
+                        </a>
+                        <a
+                            className="carousel-control-next"
+                            href="#carouselExampleCaptions"
+                            role="button"
+                            data-slide="next"
+                        >
+                            <KeyboardArrowRightIcon className="arrow" />
+                            <span className="sr-only">Next</span>
+                        </a>
+                    </div>
+                    <div className="login-btn flex aic">
+                        <div className="flex aic jcc color" onClick={handlePhoneOpen}>
+                            <button className="fontr b anim s16">
+                                Continue with Phone
                          </button>
-                    </div>
-                    <div className="flex aic jcc color">
-                        <button className="font b anim s16">
-                        <i className="fab fa-facebook fa-lg"></i> &nbsp;
+                        </div>
+                        <div className="flex aic jcc color">
+                            <button className="font b anim s16">
+                                <i className="fab fa-facebook fa-lg"></i> &nbsp;
                             Continue with facebook
                          </button>
-                    </div>
-                    <div className="flex aic jcc color">
-                        <button className="fontr b anim s16">
-                        <i className="fab fa-google fa-lg"></i> &nbsp;
+                        </div>
+                        <div className="flex aic jcc color">
+                            <button className="fontr b anim s16">
+                                <i className="fab fa-google fa-lg"></i> &nbsp;
                             Continue with google
                          </button>
-                    </div>
-                    <div className="flex aic jcc color">
-                        <button className="fontr b anim s16">
-                            Continue with email
+                        </div>
+                        <div className="flex aic jcc color" onClick={handleEmailOpen}>
+                            <button className="fontr b anim s16">
+                                Continue with email
                          </button>
+                        </div>
+                    </div>
+                    <div className="footer-text font flex jcc aic cb">
+                        <p className="s13">We won't share your personal details with anyone</p>
+                    </div>
+                    <div className="footerb-text font flex tac cb">
+                        <p className="s13">If you continue, you are accepting <Link> OLX Terms and Conditions and Privacy Policy </Link></p>
                     </div>
                 </div>
-                <div className="footer-text font flex jcc aic cb">
-                    <p className="s13">We won't share your personal details with anyone</p>
+            </React.Fragment>
+        );
+
+        const phone = (
+            <React.Fragment>
+                <div className="login flex">
+                    <div className="backBtn">
+                        <ArrowBackIcon onClick={handlePhoneClose} />
+                    </div>
+                    <form>
+                        <div className="phone">
+                            <div className="phoneLogo flex aic jcc">
+                                <img src={logo} alt="logo" width="50px" />
+                            </div>
+                            <div className="PhoneText color aic flex jcc">
+                                <h5 className="b font"><label for="phone">Enter your Phone</label></h5>
+                            </div>
+                            <div className="PhoneInput flex aic">
+                                <div className="fontl color p-2 s16 aic jcc">+92</div>
+                                <div className="phoneBreak"></div>
+                                <div className="Input">
+                                    <input type="tel" id="phone" name="phone" pattern="3[0-9]{2}[0-9]{7}" placeholder="Phone Number" className="Phoneinput s15 font" />
+                                </div>
+                            </div>
+                            <div className="Login flex aic jcc" onClick={()=> PhoneLogin()}>
+                                <button className="fontr b anim s16">
+                                    LogIn
+                                    </button>
+                            </div>
+                            <div className="phoneFooter font flex tac cb">
+                                <p className="s13">We won't reveal your phone number to anyone else nor use it to send you spam</p>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div className="footerb-text font flex tac cb">
-                    <p className="s13">If you continue, you are accepting <Link> OLX Terms and Conditions and Privacy Policy </Link></p>
+            </React.Fragment>
+
+        );
+
+        const email = (
+            <React.Fragment>
+                <div className="login flex">
+                    <div className="backBtn">
+                        <ArrowBackIcon onClick={handleEmailClose} />
+                    </div>
+                    <form>
+                        <div className="phone">
+                            <div className="phoneLogo flex aic jcc">
+                                <img src={logo} alt="logo" width="50px" />
+                            </div>
+                            <div className="PhoneText color aic flex jcc">
+                                <h5 className="b font"><label for="email">Enter your Email</label></h5>
+                            </div>
+                            <div className="PhoneInput flex aic color jcc">
+                                <input type="email" name="email" id="email" placeholder="Enter Email" className="Phoneinput s15 font" />
+                            </div>
+                            <div className="PhoneInput flex color aic jcc">
+                                <input type="password" name="email" placeholder="Enter Password" className="Phoneinput s15 font" />
+                            </div>
+                            <div className="Login flex aic jcc">
+                                <button className="fontr b anim s16">
+                                    LogIn
+                                    </button>
+                            </div>
+                            <div className="phoneFooter font flex tac cb">
+                                <p className="s13">We won't reveal your phone number to anyone else nor use it to send you spam</p>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </div>
+            </React.Fragment>
+
         );
 
         const nav = [
@@ -223,8 +333,8 @@ class Header extends React.Component {
                         </div>
                     </div>
                     <div className="actions flex aic">
-                        <Link to="/account.signin" className="fontb s16 noul" onClick={handleOpen}>Login</Link>
-                        <button className="sell flex aic" onClick={handleOpen}>
+                        <Link to="/account.signin" className="fontb s16 noul" onClick={handleLoginOpen}>Login</Link>
+                        <button className="sell flex aic" onClick={handleLoginOpen}>
                             <AddIcon className="ico s24 fontb" />
                             <h2 className="s18 fontb">SELL</h2>
                         </button>
@@ -238,6 +348,24 @@ class Header extends React.Component {
                         className="flex aic jcc"
                     >
                         {body}
+                    </Modal>
+                    <Modal
+                        open={this.state.PhoneModel}
+                        onClose={handlePhoneClose}
+                        aria-labelledby="simple-modal-title"
+                        aria-describedby="simple-modal-description"
+                        className="flex aic jcc"
+                    >
+                        {phone}
+                    </Modal>
+                    <Modal
+                        open={this.state.emailModel}
+                        onClose={handleEmailClose}
+                        aria-labelledby="simple-modal-title"
+                        aria-describedby="simple-modal-description"
+                        className="flex aic jcc"
+                    >
+                        {email}
                     </Modal>
                 </div>
 

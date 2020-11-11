@@ -327,13 +327,13 @@
     color: black;
     padding: 0px;
     margin: 0px;
-    box-shadow: 0 1px 4px 0 rgba(0,0,0,.1);
+    border: 0px solid rgba(0, 47, 52, 0.2);
 }
 .login .carousel{
-    height: 230px !important;
+    height: 220px !important;
     width: 400px;
     position: absolute;
-    top: 3%;
+    top: 6%;
     padding: 5px;
 }
 .login .carousel-indicators li{
@@ -403,4 +403,81 @@
     bottom: 2%;
     width: 400px;
     padding: 0px 30px;
+}
+.close-btn{
+    position: relative;
+    left: 370px;
+}
+.close-btn:hover{
+    cursor: pointer;
+}
+.backBtn{
+    position: relative;
+    height: 50px;
+}
+.backBtn:hover{
+    cursor: pointer;
+}
+.phone{
+
+}
+.phone .PhoneText{
+    margin-top: 30px;
+}
+.phone .PhoneText h5{
+    letter-spacing: 0.1em;
+}
+.phone .PhoneInput {
+    padding: 30px 5px;
+    background: #fff;
+    border: 2px solid #002f34;
+    border-radius: 5px;
+    flex: 2;
+    margin: 50px 20px;
+    height: 45px;
+}
+.phone .PhoneInput .phoneBreak{
+    width: 2px;
+    background-color: rgba(0, 47, 52, 0.2);
+    border: 0px solid rgba(0, 47, 52, 0.2);
+    margin: 0px 10px;
+    height: 40px;
+}
+.phone .PhoneText .Input{
+    background: #fff;
+    border: 2px solid #002f34;
+    border-radius: 5px;
+    flex: 2;
+    margin: 0px 20px;
+    height: 45px;
+}
+.Phoneinput{
+    flex: 1;
+    margin: 10px;
+    border: 0px;
+    height: 40px;
+}
+.phone .Login{
+    padding: 20px 10px;
+}
+.phone .Login button {
+    margin:40px auto;
+    color: #fff;
+    border: 2px solid #002f34;
+    background: #002f34;
+    padding:12px 10px;
+    border-radius: 5px;
+    width: 350px;
+}
+.phone .Login button:hover {
+    color: #002f34;
+    background: #fff;
+}
+.phone .phoneFooter{
+    width: 400px;
+    padding: 0px 30px;
+}
+.PhoneClose{
+    position: relative;
+    left: 370px;
 }
