@@ -8,12 +8,6 @@ import linkImg1 from '../images/link-img1.png'
 import linkImg2 from '../images/link-img2.png'
 
 
-//import social icon for footer
-import ficon from '../images/social-icons/facebook.png'
-import ticon from '../images/social-icons/facebook.png'
-import yicon from '../images/social-icons/facebook.png'
-import iicon from '../images/social-icons/facebook.png'
-
 
 
 

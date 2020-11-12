@@ -451,6 +451,9 @@
     margin: 0px 20px;
     height: 45px;
 }
+.phone .PhoneText .Input:active{
+    
+}
 .Phoneinput{
     flex: 1;
     margin: 10px;

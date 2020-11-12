@@ -19,8 +19,8 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import firebase from '../config/firebase'
 
 
-
 class Header extends React.Component {
+
     constructor() {
         super()
         this.state = {
@@ -29,6 +29,9 @@ class Header extends React.Component {
             loginModel: false,
             PhoneModel: false,
             emailModel: false,
+            PhoneNumber: "",
+            email: "",
+            password: "",
         }
     }
     render() {
@@ -63,14 +66,14 @@ class Header extends React.Component {
         const handleLoginOpen = () => {
             this.setState({
                 ...this.state,
-                loginModel: true,
+                loginModel: true
             })
         };
 
         const handleLoginClose = () => {
             this.setState({
                 ...this.state,
-                loginModel: false,
+                loginModel: false
             })
         };
         const handlePhoneOpen = () => {
@@ -99,11 +102,38 @@ class Header extends React.Component {
             })
         };
 
-        const PhoneLogin= () =>{
+        const SignInWithEmail = () => {
+            firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+            
+            .then(()=>{
+                alert("successFull Create Now Log In Again")
+            })
+            
+            .catch(function (error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                alert(errorMessage)
+                // ...
+            });
         }
 
+        const SignOutEmail = () => {
 
-        const body = (
+        }
+
+        const nav = [
+            { ID: 1, label: "Mobile Phones" },
+            { ID: 2, label: "Cars" },
+            { ID: 3, label: "Motorcycles" },
+            { ID: 4, label: "Houses" },
+            { ID: 5, label: "TV-Video-Audio" },
+            { ID: 6, label: "Teblets" },
+            { ID: 7, label: "Land & Plots" },
+        ]
+
+        const LoginBody = (
+
             <React.Fragment>
                 <div className="login flex">
                     <div className="close-btn">
@@ -197,7 +227,7 @@ class Header extends React.Component {
             </React.Fragment>
         );
 
-        const phone = (
+        const PhoneBody = (
             <React.Fragment>
                 <div className="login flex">
                     <div className="backBtn">
@@ -215,11 +245,14 @@ class Header extends React.Component {
                                 <div className="fontl color p-2 s16 aic jcc">+92</div>
                                 <div className="phoneBreak"></div>
                                 <div className="Input">
-                                    <input type="tel" id="phone" name="phone" pattern="3[0-9]{2}[0-9]{7}" placeholder="Phone Number" className="Phoneinput s15 font" />
+                                    <input type="tel" id="phone" name="phone" onChange={(e) => this.setState({
+                                        ...this.state,
+                                        PhoneNumber: e.target.value,
+                                    })} pattern="3[0-9]{2}[0-9]{7}" placeholder="Phone Number" className="Phoneinput s15 font" />
                                 </div>
                             </div>
-                            <div className="Login flex aic jcc" onClick={()=> PhoneLogin()}>
-                                <button className="fontr b anim s16">
+                            <div className="Login flex aic jcc">
+                                <button className="fontr b anim s16" id="sign-in-button">
                                     LogIn
                                     </button>
                             </div>
@@ -230,16 +263,14 @@ class Header extends React.Component {
                     </form>
                 </div>
             </React.Fragment>
-
         );
 
-        const email = (
+        const EmailBody = (
             <React.Fragment>
                 <div className="login flex">
                     <div className="backBtn">
                         <ArrowBackIcon onClick={handleEmailClose} />
                     </div>
-                    <form>
                         <div className="phone">
                             <div className="phoneLogo flex aic jcc">
                                 <img src={logo} alt="logo" width="50px" />
@@ -248,36 +279,33 @@ class Header extends React.Component {
                                 <h5 className="b font"><label for="email">Enter your Email</label></h5>
                             </div>
                             <div className="PhoneInput flex aic color jcc">
-                                <input type="email" name="email" id="email" placeholder="Enter Email" className="Phoneinput s15 font" />
+                                <input type="email" name="email" id="email" value={this.state.email} placeholder="Enter Email" className="Phoneinput s15 font" onChange={(e) => {
+                                    this.setState({
+                                        ...this.state,
+                                        email: e.target.value,
+                                    })
+                                }} />
                             </div>
                             <div className="PhoneInput flex color aic jcc">
-                                <input type="password" name="email" placeholder="Enter Password" className="Phoneinput s15 font" />
+                                <input type="password" name="email" value={this.state.password} placeholder="Enter Password" className="Phoneinput s15 font" onChange={(e) => {
+                                    this.setState({
+                                        ...this.state,
+                                        password: e.target.value,
+                                    })
+                                }} />
                             </div>
                             <div className="Login flex aic jcc">
-                                <button className="fontr b anim s16">
+                                <button className="fontr b anim s16" onClick={()=> SignInWithEmail()}>
                                     LogIn
-                                    </button>
+                                </button>
                             </div>
                             <div className="phoneFooter font flex tac cb">
                                 <p className="s13">We won't reveal your phone number to anyone else nor use it to send you spam</p>
                             </div>
                         </div>
-                    </form>
                 </div>
             </React.Fragment>
-
         );
-
-        const nav = [
-            { ID: 1, label: "Mobile Phones" },
-            { ID: 2, label: "Cars" },
-            { ID: 3, label: "Motorcycles" },
-            { ID: 4, label: "Houses" },
-            { ID: 5, label: "TV-Video-Audio" },
-            { ID: 6, label: "Teblets" },
-            { ID: 7, label: "Land & Plots" },
-        ]
-
 
         return (
             <React.Fragment>
@@ -333,7 +361,7 @@ class Header extends React.Component {
                         </div>
                     </div>
                     <div className="actions flex aic">
-                        <Link to="/account.signin" className="fontb s16 noul" onClick={handleLoginOpen}>Login</Link>
+                        <Link to="/signIn" className="fontb s16 noul" onClick={handleLoginOpen}>Login</Link>
                         <button className="sell flex aic" onClick={handleLoginOpen}>
                             <AddIcon className="ico s24 fontb" />
                             <h2 className="s18 fontb">SELL</h2>
@@ -347,7 +375,7 @@ class Header extends React.Component {
                         aria-describedby="simple-modal-description"
                         className="flex aic jcc"
                     >
-                        {body}
+                        {LoginBody}
                     </Modal>
                     <Modal
                         open={this.state.PhoneModel}
@@ -356,7 +384,7 @@ class Header extends React.Component {
                         aria-describedby="simple-modal-description"
                         className="flex aic jcc"
                     >
-                        {phone}
+                        {PhoneBody}
                     </Modal>
                     <Modal
                         open={this.state.emailModel}
@@ -365,7 +393,7 @@ class Header extends React.Component {
                         aria-describedby="simple-modal-description"
                         className="flex aic jcc"
                     >
-                        {email}
+                        {EmailBody}
                     </Modal>
                 </div>
 
@@ -389,4 +417,21 @@ class Header extends React.Component {
         )
     }
 }
+
+
+// const mapStateToProps = (state) => ({
+//     // email: state.auth.email,
+//     // userName: state.auth.userName,
+//     loginModel: state.app.loginModel,
+//     PhoneModel: state.app.PhoneModel,
+//     emailModel: state.app.emailModel,
+// })
+
+
+
+// const mapDispatchToMap = (dispatch) => ({
+//     set_Login: (data) => dispatch(set_Login(data)),
+
+// })
+
 export default Header;
