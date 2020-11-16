@@ -461,10 +461,10 @@
     height: 40px;
 }
 .phone .Login{
-    padding: 20px 10px;
+    padding: 10px 10px;
 }
 .phone .Login button {
-    margin:40px auto;
+    margin:5px auto;
     color: #fff;
     border: 2px solid #002f34;
     background: #002f34;
@@ -483,4 +483,10 @@
 .PhoneClose{
     position: relative;
     left: 370px;
+}
+.alertDiv{
+    position: fixed;
+    top: 20%;
+    width: 30%;
+    left: 39%;
 }

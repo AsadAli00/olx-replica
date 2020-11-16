@@ -5,7 +5,7 @@ import AddItem from './AddItem'
 import appRibbon from '../images/app-ribbon.png'
 import linkImg1 from '../images/link-img1.png'
 import linkImg2 from '../images/link-img2.png'
-
+import Alert from '@material-ui/lab/Alert';
 
 
 
@@ -47,6 +47,7 @@ class Home extends Component {
                 <div className="home-page">
                     <div className="ad-list flex jcc">
                         {this.props.list}
+                        
                     </div>
                     <button className="load-more fontr b anim s16">
                         Load More

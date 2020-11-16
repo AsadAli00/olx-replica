@@ -3,7 +3,7 @@ import logo from '../images/logo.png'
 import SearchIcon from '@material-ui/icons/Search';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import AddIcon from '@material-ui/icons/Add';
-import { Link } from 'react-router-dom'
+import { Link, Route } from 'react-router-dom'
 import Popover from '@material-ui/core/Popover';
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import Divider from '@material-ui/core/Divider';
@@ -16,8 +16,11 @@ import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import CloseIcon from '@material-ui/icons/Close';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import firebase from '../config/firebase'
-
+import firebase from '../config/firebase';
+import { connect } from 'react-redux'
+import { Is_Logged } from '../store/action';
+import {Redirect} from 'react-router-dom'
+import Home from './Home';
 
 class Header extends React.Component {
 
@@ -28,14 +31,21 @@ class Header extends React.Component {
             anchorEl: "",
             loginModel: false,
             PhoneModel: false,
-            emailModel: false,
+            emailSignUpModel: false,
             PhoneNumber: "",
             email: "",
             password: "",
         }
     }
-    render() {
 
+        // componentDidMount() {
+        //    if(this.props.isLoggedIn){
+        //        <Redirect to="/Home/UserLoggedIn" />
+        //    }
+        //   }
+
+
+    render() {
 
         const handleClick = (event) => {
             this.setState({
@@ -86,7 +96,7 @@ class Header extends React.Component {
         const handleEmailOpen = () => {
             this.setState({
                 ...this.state,
-                emailModel: true,
+                emailSignUpModel: true,
             })
         };
         const handlePhoneClose = () => {
@@ -98,24 +108,63 @@ class Header extends React.Component {
         const handleEmailClose = () => {
             this.setState({
                 ...this.state,
-                emailModel: false,
+                emailSignUpModel: false,
             })
         };
+        // const handleAlertClose = () => {
+        //     this.setState({
+        //         ...this.state,
+        //         alert: false,
+        //     })
+        // };
+        // const handleAlertOpen = () => {
+        //     this.setState({
+        //         ...this.state,
+        //         alert: true,
+        //     })
+        // };
+        const SignUpWithEmail = () => {
 
-        const SignInWithEmail = () => {
             firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
-            
-            .then(()=>{
-                alert("successFull Create Now Log In Again")
-            })
-            
-            .catch(function (error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                alert(errorMessage)
-                // ...
-            });
+
+                .then((result) => {
+                   
+                   
+
+                   setTimeout(()=>{
+                    alert("SignUp SuccessFull")
+                    window.location.reload();
+                   },500)
+
+
+                })
+
+                .catch(function (error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    alert(errorMessage)
+                    // ...
+                });
+        }
+        const SignInWithEmail = () => {
+            firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+                .then((result) => {
+                    if(result){
+                        this.props.Is_Logged(true)
+                        }
+                        else{
+                            this.props.Is_Logged(false)
+                        }
+                        
+                })
+                .catch(function (error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    alert(errorMessage)
+                    // ...
+                });
         }
 
         const SignOutEmail = () => {
@@ -265,47 +314,53 @@ class Header extends React.Component {
             </React.Fragment>
         );
 
-        const EmailBody = (
+        const EmailSignUpBody = (
             <React.Fragment>
                 <div className="login flex">
                     <div className="backBtn">
                         <ArrowBackIcon onClick={handleEmailClose} />
                     </div>
-                        <div className="phone">
-                            <div className="phoneLogo flex aic jcc">
-                                <img src={logo} alt="logo" width="50px" />
-                            </div>
-                            <div className="PhoneText color aic flex jcc">
-                                <h5 className="b font"><label for="email">Enter your Email</label></h5>
-                            </div>
-                            <div className="PhoneInput flex aic color jcc">
-                                <input type="email" name="email" id="email" value={this.state.email} placeholder="Enter Email" className="Phoneinput s15 font" onChange={(e) => {
-                                    this.setState({
-                                        ...this.state,
-                                        email: e.target.value,
-                                    })
-                                }} />
-                            </div>
-                            <div className="PhoneInput flex color aic jcc">
-                                <input type="password" name="email" value={this.state.password} placeholder="Enter Password" className="Phoneinput s15 font" onChange={(e) => {
-                                    this.setState({
-                                        ...this.state,
-                                        password: e.target.value,
-                                    })
-                                }} />
-                            </div>
-                            <div className="Login flex aic jcc">
-                                <button className="fontr b anim s16" onClick={()=> SignInWithEmail()}>
-                                    LogIn
-                                </button>
-                            </div>
-                            <div className="phoneFooter font flex tac cb">
-                                <p className="s13">We won't reveal your phone number to anyone else nor use it to send you spam</p>
-                            </div>
+                    <div className="phone">
+                        <div className="phoneLogo flex aic jcc">
+                            <img src={logo} alt="logo" width="50px" />
                         </div>
+                        <div className="PhoneText color aic flex jcc">
+                            <h5 className="b font"><label for="email">Enter your Email</label></h5>
+                        </div>
+                        <div className="PhoneInput flex aic color jcc">
+                            <input type="email" name="email" id="email" value={this.state.email} placeholder="Enter Email" className="Phoneinput s15 font" onChange={(e) => {
+                                this.setState({
+                                    ...this.state,
+                                    email: e.target.value,
+                                })
+                            }} />
+                        </div>
+                        <div className="PhoneInput flex color aic jcc">
+                            <input type="password" name="email" value={this.state.password} placeholder="Enter Password" className="Phoneinput s15 font" onChange={(e) => {
+                                this.setState({
+                                    ...this.state,
+                                    password: e.target.value,
+                                })
+                            }} />
+                        </div>
+                        <div className="Login flex aic jcc">
+                            <button className="fontr b anim s16" onClick={() => SignUpWithEmail()}>
+                                SignUp
+                                </button>
+                        </div>
+                        <div className="Login flex aic jcc">
+                            <button className="fontr b anim s16" onClick={() => SignInWithEmail()}>
+                                SignIn
+                                </button>
+                        </div>
+                        <div className="phoneFooter font flex tac cb">
+                            <p className="s13">We won't reveal your phone number to anyone else nor use it to send you spam</p>
+                        </div>
+                    </div>
                 </div>
             </React.Fragment>
         );
+
 
         return (
             <React.Fragment>
@@ -387,13 +442,13 @@ class Header extends React.Component {
                         {PhoneBody}
                     </Modal>
                     <Modal
-                        open={this.state.emailModel}
+                        open={this.state.emailSignUpModel}
                         onClose={handleEmailClose}
                         aria-labelledby="simple-modal-title"
                         aria-describedby="simple-modal-description"
                         className="flex aic jcc"
                     >
-                        {EmailBody}
+                        {EmailSignUpBody}
                     </Modal>
                 </div>
 
@@ -419,19 +474,17 @@ class Header extends React.Component {
 }
 
 
-// const mapStateToProps = (state) => ({
-//     // email: state.auth.email,
-//     // userName: state.auth.userName,
-//     loginModel: state.app.loginModel,
-//     PhoneModel: state.app.PhoneModel,
-//     emailModel: state.app.emailModel,
-// })
+const mapStateToProps = (state) => ({
+    // email: state.auth.email,
+    // userName: state.auth.userName,
+    isLoggedIn: state.auth.isLoggedIn,
+})
 
 
 
-// const mapDispatchToMap = (dispatch) => ({
-//     set_Login: (data) => dispatch(set_Login(data)),
+const mapDispatchToMap = (dispatch) => ({
+    Is_Logged: (data) => dispatch(Is_Logged(data)),
 
-// })
+})
 
-export default Header;
+export default connect(mapStateToProps, mapDispatchToMap)(Header);

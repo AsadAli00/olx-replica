@@ -1,11 +1,17 @@
 const INITIAL_STATE = {
-    userName: "Asad",
-    email : "asadali111222@outlook.com"
-    
+    isLoggedIn: null 
 }
 
 
 
 export default (state = INITIAL_STATE,action) =>{
-   return state
+    switch (action.type) {
+        case "Is_Logged":
+            return ({
+                ...state,
+                isLoggedIn: [action.data]
+            })
+        default:
+            return state
+    }
 }
