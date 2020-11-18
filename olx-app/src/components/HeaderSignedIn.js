@@ -18,9 +18,10 @@ import CloseIcon from '@material-ui/icons/Close';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import firebase from '../config/firebase';
 import { connect } from 'react-redux'
-import { Is_Logged,AuthEmail,Is_LoggedOut } from '../store/action';
-import {Redirect} from 'react-router-dom'
+import { Is_Logged, Is_LoggedOut} from '../store/action';
+import { Redirect } from 'react-router-dom'
 import Home from './Home';
+import Avatar from '@material-ui/core/Avatar';
 
 class Header extends React.Component {
 
@@ -29,6 +30,7 @@ class Header extends React.Component {
         this.state = {
             locationValue: "Karachi",
             anchorEl: "",
+            anchorEl1: "",
             loginModel: false,
             PhoneModel: false,
             emailSignUpModel: false,
@@ -38,11 +40,11 @@ class Header extends React.Component {
         }
     }
 
-        // componentDidMount() {
-        //    if(this.props.isLoggedIn){
-        //        <Redirect to="/Home/UserLoggedIn" />
-        //    }
-        //   }
+    // componentDidMount() {
+    //    if(this.props.isLoggedIn){
+    //        <Redirect to="/Home/UserLoggedIn" />
+    //    }
+    //   }
 
 
     render() {
@@ -60,9 +62,22 @@ class Header extends React.Component {
                 anchorEl: ""
             })
         };
-
+        const handleAvaterClick = (event) => {
+            this.setState({
+                ...this.state,
+                anchorEl1: event.currentTarget,
+            })
+        };
+        const handleAvaterClose = () => {
+            this.setState({
+                ...this.state,
+                anchorEl1: ""
+            })
+        };
         const open = Boolean(this.state.anchorEl);
         const id = open ? 'simple-popover' : undefined;
+        const Avateropen = Boolean(this.state.anchorEl1);
+        const Avaterid = Avateropen ? 'simple-popover' : undefined;
 
         const handleChange = (event) => {
             this.setState({
@@ -128,13 +143,13 @@ class Header extends React.Component {
             firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
 
                 .then((result) => {
-                   
-                   
 
-                   setTimeout(()=>{
-                    alert("SignUp SuccessFull")
-                    window.location.reload();
-                   },500)
+
+
+                    setTimeout(() => {
+                        alert("SignUp SuccessFull")
+                        window.location.reload();
+                    }, 500)
 
 
                 })
@@ -150,18 +165,15 @@ class Header extends React.Component {
         const SignInWithEmail = () => {
             firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
                 .then((result) => {
-                    if(result.user){
+                    if (result.user) {
                         handleEmailClose()
                         handleLoginClose()
-                        setTimeout(()=>{
+                        setTimeout(() => {
                             this.props.Is_Logged(true)
-                        },500)
-                        console.log(result.user.email);
-                        this.props.AuthEmail(result.user.email)
+                        }, 1000)
 
-                       
                     }
-                        
+
                 })
                 .catch(function (error) {
                     // Handle Errors here.
@@ -173,7 +185,19 @@ class Header extends React.Component {
         }
 
         const SignOutEmail = () => {
+            firebase.auth().signOut()
+            .then((result)=> {
+                this.props.Is_Logged(false)
+               setTimeout(()=> {
+                   console.log("signOut");
+                   
+                   this.props.Is_LoggedOut(true)
 
+               },500)
+                // Sign-out successful.
+              }).catch(function(error) {
+                // An error happened.
+              });
         }
 
         const nav = [
@@ -185,188 +209,7 @@ class Header extends React.Component {
             { ID: 6, label: "Teblets" },
             { ID: 7, label: "Land & Plots" },
         ]
-
-        const LoginBody = (
-
-            <React.Fragment>
-                <div className="login flex">
-                    <div className="close-btn">
-                        <Link to="/" className="color">
-                        <CloseIcon  onClick={handleLoginClose} /></Link>
-                    </div>
-                    <div
-                        id="carouselExampleCaptions"
-                        className="carousel font s15"
-                        data-ride="carousel"
-                    >
-                        <ol className="carousel-indicators">
-                            <li
-                                data-target="#carouselExampleCaptions"
-                                data-slide-to={0}
-                                className="active"
-                            ></li>
-                            <li data-target="#carouselExampleCaptions" data-slide-to={1} />
-                            <li data-target="#carouselExampleCaptions" data-slide-to={2} />
-                        </ol>
-                        <div className="carousel-inner">
-                            <div className="carousel-item  active">
-                                <img src={banner1} className="d-block w-100" alt="..." />
-                                <div className="caption s13 font flex color">
-                                    <h5 className="s15">Help make OLX safer place to buy and sell</h5>
-                                </div>
-                            </div>
-                            <div className="carousel-item">
-
-                                <img src={banner2} className="d-block w-100" alt="slider 1" />
-                                <div className="caption s13 font flex color aic">
-                                    <h5 className="s15">Contact and Close deals faster</h5>
-                                </div>
-                            </div>
-                            <div className="carousel-item">
-                                <img src={banner3} className="d-block w-100" alt="..." />
-                                <div className="caption s13 font flex color">
-                                    <h5 className="s15">Save all your favorite items in one place</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <a
-                            className="carousel-control-prev"
-                            href="#carouselExampleCaptions"
-                            role="button"
-                            data-slide="prev"
-                        >
-                            <KeyboardArrowLeftIcon className="arrow" />
-                            <span className="sr-only">Previous</span>
-                        </a>
-                        <a
-                            className="carousel-control-next"
-                            href="#carouselExampleCaptions"
-                            role="button"
-                            data-slide="next"
-                        >
-                            <KeyboardArrowRightIcon className="arrow" />
-                            <span className="sr-only">Next</span>
-                        </a>
-                    </div>
-                    <div className="login-btn flex aic">
-                        <div className="flex aic jcc color" onClick={handlePhoneOpen}>
-                            <button className="fontr b anim s16">
-                                Continue with Phone
-                         </button>
-                        </div>
-                        <div className="flex aic jcc color">
-                            <button className="font b anim s16">
-                                <i className="fab fa-facebook fa-lg"></i> &nbsp;
-                            Continue with facebook
-                         </button>
-                        </div>
-                        <div className="flex aic jcc color">
-                            <button className="fontr b anim s16">
-                                <i className="fab fa-google fa-lg"></i> &nbsp;
-                            Continue with google
-                         </button>
-                        </div>
-                        <div className="flex aic jcc color" onClick={handleEmailOpen}>
-                            <button className="fontr b anim s16">
-                                Continue with email
-                         </button>
-                        </div>
-                    </div>
-                    <div className="footer-text font flex jcc aic cb">
-                        <p className="s13">We won't share your personal details with anyone</p>
-                    </div>
-                    <div className="footerb-text font flex tac cb">
-                        <p className="s13">If you continue, you are accepting <Link> OLX Terms and Conditions and Privacy Policy </Link></p>
-                    </div>
-                </div>
-            </React.Fragment>
-        );
-
-        const PhoneBody = (
-            <React.Fragment>
-                <div className="login flex">
-                    <div className="backBtn">
-                        <ArrowBackIcon onClick={handlePhoneClose} />
-                    </div>
-                    <form>
-                        <div className="phone">
-                            <div className="phoneLogo flex aic jcc">
-                                <img src={logo} alt="logo" width="50px" />
-                            </div>
-                            <div className="PhoneText color aic flex jcc">
-                                <h5 className="b font"><label for="phone">Enter your Phone</label></h5>
-                            </div>
-                            <div className="PhoneInput flex aic">
-                                <div className="fontl color p-2 s16 aic jcc">+92</div>
-                                <div className="phoneBreak"></div>
-                                <div className="Input">
-                                    <input type="tel" id="phone" name="phone" onChange={(e) => this.setState({
-                                        ...this.state,
-                                        PhoneNumber: e.target.value,
-                                    })} pattern="3[0-9]{2}[0-9]{7}" placeholder="Phone Number" className="Phoneinput s15 font" />
-                                </div>
-                            </div>
-                            <div className="Login flex aic jcc">
-                                <button className="fontr b anim s16" id="sign-in-button">
-                                    LogIn
-                                    </button>
-                            </div>
-                            <div className="phoneFooter font flex tac cb">
-                                <p className="s13">We won't reveal your phone number to anyone else nor use it to send you spam</p>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </React.Fragment>
-        );
-
-        const EmailSignUpBody = (
-            <React.Fragment>
-                <div className="login flex">
-                    <div className="backBtn">
-                        <ArrowBackIcon onClick={handleEmailClose} />
-                    </div>
-                    <div className="phone">
-                        <div className="phoneLogo flex aic jcc">
-                            <img src={logo} alt="logo" width="50px" />
-                        </div>
-                        <div className="PhoneText color aic flex jcc">
-                            <h5 className="b font"><label for="email">Enter your Email</label></h5>
-                        </div>
-                        <div className="PhoneInput flex aic color jcc">
-                            <input type="email"  pattern=".+@globex.com" size="30" required name="email" id="email" value={this.state.email} placeholder="Enter Email" className="Phoneinput s15 font" onChange={(e) => {
-                                this.setState({
-                                    ...this.state,
-                                    email: e.target.value,
-                                })
-                            }} />
-                        </div>
-                        <div className="PhoneInput flex color aic jcc">
-                            <input type="password" name="email" value={this.state.password} placeholder="Enter Password" className="Phoneinput s15 font" onChange={(e) => {
-                                this.setState({
-                                    ...this.state,
-                                    password: e.target.value,
-                                })
-                            }} />
-                        </div>
-                        <div className="Login flex aic jcc">
-                            <button className="fontr b anim s16" onClick={() => SignUpWithEmail()}>
-                                SignUp
-                                </button>
-                        </div>
-                        <div className="Login flex aic jcc">
-                            <button className="fontr b anim s16" onClick={() => SignInWithEmail()}>
-                                SignIn
-                                </button>
-                        </div>
-                        <div className="phoneFooter font flex tac cb">
-                            <p className="s13">We won't reveal your phone number to anyone else nor use it to send you spam</p>
-                        </div>
-                    </div>
-                </div>
-            </React.Fragment>
-        );
-
+        const emailLetter = this.props.AuthEmail[0].substring(0, 2);
 
         return (
             <React.Fragment>
@@ -422,14 +265,35 @@ class Header extends React.Component {
                         </div>
                     </div>
                     <div className="actions flex aic">
-                        <Link to="/" className="fontb s16 noul" onClick={handleLoginOpen}>Login</Link>
+                        <div onClick={handleAvaterClick}>
+                            <Avatar className="Avater" >{emailLetter}</Avatar></div>
                         <button className="sell flex aic" onClick={handleLoginOpen}>
                             <AddIcon className="ico s24 fontb" />
                             <h2 className="s18 fontb">SELL</h2>
                         </button>
 
                     </div>
-                    <Modal
+                    <Popover
+                        id={Avaterid}
+                        open={Avateropen}
+                        anchorEl={this.state.anchorEl1}
+                        onClose={handleAvaterClose}
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                        }}
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                        }}
+                    >
+                        <ul className="avater-list flex">
+                    <Link className=" noulh noul color bl font s15 jcc">{this.props.AuthEmail[0]}</ Link>
+                    <Link className=" noulh noul color bl font s15 jcc" onClick={SignOutEmail}>SignOut</ Link>
+
+                        </ul>
+                    </Popover>
+                    {/* <Modal
                         open={this.state.loginModel}
                         onClose={handleLoginClose}
                         aria-labelledby="simple-modal-title"
@@ -455,7 +319,7 @@ class Header extends React.Component {
                         className="flex aic jcc"
                     >
                         {EmailSignUpBody}
-                    </Modal>
+                    </Modal> */}
                 </div>
 
                 <div className="hnav fixed flex aic">
@@ -484,14 +348,15 @@ const mapStateToProps = (state) => ({
     // email: state.auth.email,
     // userName: state.auth.userName,
     isLoggedIn: state.auth.isLoggedIn,
+    AuthEmail: state.auth.authEmail,
+    isLoggedOut: state.auth.isLoggedOut,
 })
 
 
 
 const mapDispatchToMap = (dispatch) => ({
-    Is_LoggedOut: (data) => dispatch(Is_LoggedOut(data)),
     Is_Logged: (data) => dispatch(Is_Logged(data)),
-    AuthEmail:  (data) => dispatch(AuthEmail(data))
+    Is_LoggedOut: (data) => dispatch(Is_LoggedOut(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToMap)(Header);

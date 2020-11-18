@@ -490,3 +490,26 @@
     width: 30%;
     left: 39%;
 }
+.Avater{
+    margin-right: 20px;
+}
+.avater-list{
+    background: #fff;
+    width: 200px;
+    text-align: left;
+    padding-inline-start: 0px;
+    margin-bottom: 0px;
+    flex-direction: column;
+    overflow: auto;
+    height:fit-content;
+}
+.avater-list a{
+    padding: 12px;
+    width: 200px;
+    text-decoration: none !important;
+    height: 50px;  
+}
+.avater-list a:hover{
+    background: #c8f8f6;
+    
+}

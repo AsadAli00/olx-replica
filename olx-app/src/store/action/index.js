@@ -13,6 +13,16 @@ const Is_Logged = (data)=>{
         dispatch({type:"Is_Logged",data: data})
     }
 }
+const Is_LoggedOut = (data)=>{
+    return(dispatch)=>{
+        dispatch({type:"Is_LoggedOut",data: data})
+    }
+}
+const AuthEmail = (data)=>{
+    return(dispatch)=>{
+        dispatch({type:"AuthEmail",data: data})
+    }
+}
 // const set_Login = (data) => {
 //     return(dispatch)=>{
 //         dispatch({type:"set_Login",data: data})
@@ -33,4 +43,6 @@ const Is_Logged = (data)=>{
 export{
     set_Data,
     Is_Logged,
+    AuthEmail,
+    Is_LoggedOut,
 }
