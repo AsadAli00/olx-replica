@@ -2,6 +2,7 @@ const INITIAL_STATE = {
     isLoggedIn: false,
     isLoggedOut: false,
     authEmail: "",
+    authName: "",
 
 }
 
@@ -23,6 +24,11 @@ export default (state = INITIAL_STATE, action) => {
             return ({
                 ...state,
                 authEmail: [action.data]
+            })
+        case "AuthName":
+            return ({
+                ...state,
+                authName: [action.data]
             })
         default:
             return state

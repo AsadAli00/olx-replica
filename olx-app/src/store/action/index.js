@@ -23,6 +23,11 @@ const AuthEmail = (data)=>{
         dispatch({type:"AuthEmail",data: data})
     }
 }
+const AuthName = (data)=>{
+    return(dispatch)=>{
+        dispatch({type:"AuthName",data: data})
+    }
+}
 // const set_Login = (data) => {
 //     return(dispatch)=>{
 //         dispatch({type:"set_Login",data: data})
@@ -45,4 +50,5 @@ export{
     Is_Logged,
     AuthEmail,
     Is_LoggedOut,
+    AuthName
 }

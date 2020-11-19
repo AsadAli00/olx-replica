@@ -191,7 +191,7 @@ class Header extends React.Component {
                setTimeout(()=> {
                    console.log("signOut");
                    
-                   this.props.Is_LoggedOut(true)
+                   window.location.reload()
 
                },500)
                 // Sign-out successful.
@@ -288,7 +288,8 @@ class Header extends React.Component {
                         }}
                     >
                         <ul className="avater-list flex">
-                    <Link className=" noulh noul color bl font s15 jcc">{this.props.AuthEmail[0]}</ Link>
+                            {this.props.AuthName ? <Link className=" noulh noul color bl font s15 jcc">{this.props.AuthName[0]}</ Link> : null }
+                    
                     <Link className=" noulh noul color bl font s15 jcc" onClick={SignOutEmail}>SignOut</ Link>
 
                         </ul>
@@ -350,6 +351,7 @@ const mapStateToProps = (state) => ({
     isLoggedIn: state.auth.isLoggedIn,
     AuthEmail: state.auth.authEmail,
     isLoggedOut: state.auth.isLoggedOut,
+    AuthName: state.auth.authName
 })
 
 

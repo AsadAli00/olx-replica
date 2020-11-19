@@ -18,8 +18,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import firebase from '../config/firebase';
 import { connect } from 'react-redux'
-import { Is_Logged,AuthEmail,Is_LoggedOut } from '../store/action';
-import {Redirect} from 'react-router-dom'
+import { Is_Logged, AuthEmail, Is_LoggedOut, AuthName } from '../store/action';
+import { Redirect } from 'react-router-dom'
 import Home from './Home';
 
 class Header extends React.Component {
@@ -38,11 +38,11 @@ class Header extends React.Component {
         }
     }
 
-        // componentDidMount() {
-        //    if(this.props.isLoggedIn){
-        //        <Redirect to="/Home/UserLoggedIn" />
-        //    }
-        //   }
+    // componentDidMount() {
+    //    if(this.props.isLoggedIn){
+    //        <Redirect to="/Home/UserLoggedIn" />
+    //    }
+    //   }
 
 
     render() {
@@ -128,13 +128,13 @@ class Header extends React.Component {
             firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
 
                 .then((result) => {
-                   
-                   
 
-                   setTimeout(()=>{
-                    alert("SignUp SuccessFull")
-                    window.location.reload();
-                   },500)
+
+
+                    setTimeout(() => {
+                        alert("SignUp SuccessFull")
+                        window.location.reload();
+                    }, 500)
 
 
                 })
@@ -150,18 +150,18 @@ class Header extends React.Component {
         const SignInWithEmail = () => {
             firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
                 .then((result) => {
-                    if(result.user){
+                    if (result.user) {
                         handleEmailClose()
                         handleLoginClose()
-                        setTimeout(()=>{
+                        setTimeout(() => {
                             this.props.Is_Logged(true)
-                        },500)
+                        }, 500)
                         console.log(result.user.email);
                         this.props.AuthEmail(result.user.email)
 
-                       
+
                     }
-                        
+
                 })
                 .catch(function (error) {
                     // Handle Errors here.
@@ -175,7 +175,99 @@ class Header extends React.Component {
         const SignOutEmail = () => {
 
         }
+        const SignInWithGoogle = () => {
+            var provider = new firebase.auth.GoogleAuthProvider();
+            firebase.auth().signInWithPopup(provider).then((result) => {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                // var token = result.credential.accessToken;
+                if(result.user){
+                    setTimeout(() => {
+                        this.props.Is_Logged(true)
+                    },100)
+                    this.props.AuthEmail(result.user.email)
+                    this.props.AuthName(result.user.displayName)
+                }
+                console.log(result.user.displayName);
+                // The signed-in user info.
+                var user = result.user;
+                // ...
+            }).catch(function (error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // The email of the user's account used.
+                var email = error.email;
+                // The firebase.auth.AuthCredential type that was used.
+                var credential = error.credential;
+                // ...
+            });
+            //   firebase.auth().signInWithRedirect(provider);
+            firebase.auth().getRedirectResult().then(function (result) {
+                if (result.credential) {
+                    // This gives you a Google Access Token. You can use it to access the Google API.
+                    var token = result.credential.accessToken;
 
+
+                    // ...
+                }
+                // The signed-in user info.
+                var user = result.user;
+            }).catch(function (error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // The email of the user's account used.
+                var email = error.email;
+                // The firebase.auth.AuthCredential type that was used.
+                var credential = error.credential;
+                // ...
+            });
+        }
+
+        const SignInWithFacebook = () => {
+            var provider = new firebase.auth.FacebookAuthProvider();
+            firebase.auth().signInWithPopup(provider).then((result) => {
+                // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+                var token = result.credential.accessToken;
+                // The signed-in user info.
+                if(result.user){
+                    setTimeout(() => {
+                        this.props.Is_Logged(true)
+                    },100)
+                    this.props.AuthEmail(result.user.email)
+                    this.props.AuthName(result.user.displayName)
+                }
+                var user = result.user;
+                // ...
+              }).catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // The email of the user's account used.
+                var email = error.email;
+                // The firebase.auth.AuthCredential type that was used.
+                var credential = error.credential;
+                // ...
+              });
+              firebase.auth().getRedirectResult().then(function(result) {
+                if (result.credential) {
+                  // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+                  var token = result.credential.accessToken;
+                  // ...
+                }
+                // The signed-in user info.
+                var user = result.user;
+              }).catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // The email of the user's account used.
+                var email = error.email;
+                // The firebase.auth.AuthCredential type that was used.
+                var credential = error.credential;
+                // ...
+              });
+        }
         const nav = [
             { ID: 1, label: "Mobile Phones" },
             { ID: 2, label: "Cars" },
@@ -192,7 +284,7 @@ class Header extends React.Component {
                 <div className="login flex">
                     <div className="close-btn">
                         <Link to="/" className="color">
-                        <CloseIcon  onClick={handleLoginClose} /></Link>
+                            <CloseIcon onClick={handleLoginClose} /></Link>
                     </div>
                     <div
                         id="carouselExampleCaptions"
@@ -254,13 +346,13 @@ class Header extends React.Component {
                                 Continue with Phone
                          </button>
                         </div>
-                        <div className="flex aic jcc color">
+                        <div className="flex aic jcc color" onClick={SignInWithFacebook}>
                             <button className="font b anim s16">
                                 <i className="fab fa-facebook fa-lg"></i> &nbsp;
                             Continue with facebook
                          </button>
                         </div>
-                        <div className="flex aic jcc color">
+                        <div className="flex aic jcc color" onClick={SignInWithGoogle}>
                             <button className="fontr b anim s16">
                                 <i className="fab fa-google fa-lg"></i> &nbsp;
                             Continue with google
@@ -334,7 +426,7 @@ class Header extends React.Component {
                             <h5 className="b font"><label for="email">Enter your Email</label></h5>
                         </div>
                         <div className="PhoneInput flex aic color jcc">
-                            <input type="email"  pattern=".+@globex.com" size="30" required name="email" id="email" value={this.state.email} placeholder="Enter Email" className="Phoneinput s15 font" onChange={(e) => {
+                            <input type="email" pattern=".+@globex.com" size="30" required name="email" id="email" value={this.state.email} placeholder="Enter Email" className="Phoneinput s15 font" onChange={(e) => {
                                 this.setState({
                                     ...this.state,
                                     email: e.target.value,
@@ -491,7 +583,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToMap = (dispatch) => ({
     Is_LoggedOut: (data) => dispatch(Is_LoggedOut(data)),
     Is_Logged: (data) => dispatch(Is_Logged(data)),
-    AuthEmail:  (data) => dispatch(AuthEmail(data))
+    AuthEmail: (data) => dispatch(AuthEmail(data)),
+    AuthName: (data) => dispatch(AuthName(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToMap)(Header);
