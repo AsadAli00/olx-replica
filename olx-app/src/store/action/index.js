@@ -28,6 +28,16 @@ const AuthName = (data)=>{
         dispatch({type:"AuthName",data: data})
     }
 }
+const PhoneSignedIn = (data)=>{
+    return(dispatch)=>{
+        dispatch({type:"PhoneSignedIn",data: data})
+    }
+}
+const PostClick = (data)=>{
+    return(dispatch)=>{
+        dispatch({type:"PostClick",data: data})
+    }
+}
 // const set_Login = (data) => {
 //     return(dispatch)=>{
 //         dispatch({type:"set_Login",data: data})
@@ -50,5 +60,7 @@ export{
     Is_Logged,
     AuthEmail,
     Is_LoggedOut,
-    AuthName
+    AuthName,
+    PhoneSignedIn,
+    PostClick,
 }

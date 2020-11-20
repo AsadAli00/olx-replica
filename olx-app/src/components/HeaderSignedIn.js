@@ -18,7 +18,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import firebase from '../config/firebase';
 import { connect } from 'react-redux'
-import { Is_Logged, Is_LoggedOut} from '../store/action';
+import { Is_Logged, Is_LoggedOut, PostClick } from '../store/action';
 import { Redirect } from 'react-router-dom'
 import Home from './Home';
 import Avatar from '@material-ui/core/Avatar';
@@ -186,18 +186,22 @@ class Header extends React.Component {
 
         const SignOutEmail = () => {
             firebase.auth().signOut()
-            .then((result)=> {
-                this.props.Is_Logged(false)
-               setTimeout(()=> {
-                   console.log("signOut");
-                   
-                   window.location.reload()
+                .then((result) => {
+                    this.props.Is_Logged(false)
+                    setTimeout(() => {
+                        console.log("signOut");
 
-               },500)
-                // Sign-out successful.
-              }).catch(function(error) {
-                // An error happened.
-              });
+                        window.location.reload()
+
+                    }, 500)
+                    // Sign-out successful.
+                }).catch(function (error) {
+                    // An error happened.
+                });
+        }
+        const PostClick = () => {
+            this.props.PostClick(true);
+            console.log(this.props);
         }
 
         const nav = [
@@ -267,7 +271,7 @@ class Header extends React.Component {
                     <div className="actions flex aic">
                         <div onClick={handleAvaterClick}>
                             <Avatar className="Avater" >{emailLetter}</Avatar></div>
-                        <button className="sell flex aic" onClick={handleLoginOpen}>
+                        <button className="sell flex aic" onClick={PostClick}>
                             <AddIcon className="ico s24 fontb" />
                             <h2 className="s18 fontb">SELL</h2>
                         </button>
@@ -288,9 +292,9 @@ class Header extends React.Component {
                         }}
                     >
                         <ul className="avater-list flex">
-                            {this.props.AuthName ? <Link className=" noulh noul color bl font s15 jcc">{this.props.AuthName[0]}</ Link> : null }
-                    
-                    <Link className=" noulh noul color bl font s15 jcc" onClick={SignOutEmail}>SignOut</ Link>
+                            {this.props.AuthName ? <Link className=" noulh noul color bl font s15 jcc">{this.props.AuthName[0]}</ Link> : null}
+
+                            <Link className=" noulh noul color bl font s15 jcc" onClick={SignOutEmail}>SignOut</ Link>
 
                         </ul>
                     </Popover>
@@ -351,14 +355,15 @@ const mapStateToProps = (state) => ({
     isLoggedIn: state.auth.isLoggedIn,
     AuthEmail: state.auth.authEmail,
     isLoggedOut: state.auth.isLoggedOut,
-    AuthName: state.auth.authName
+    AuthName: state.auth.authName,
 })
 
 
 
 const mapDispatchToMap = (dispatch) => ({
     Is_Logged: (data) => dispatch(Is_Logged(data)),
-    Is_LoggedOut: (data) => dispatch(Is_LoggedOut(data))
+    Is_LoggedOut: (data) => dispatch(Is_LoggedOut(data)),
+    PostClick: (data) => dispatch(PostClick(data)),
 })
 
 export default connect(mapStateToProps, mapDispatchToMap)(Header);

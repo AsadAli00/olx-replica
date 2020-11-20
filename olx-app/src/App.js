@@ -12,6 +12,7 @@ import '@fortawesome/fontawesome-free/css/solid.css'
 import Home from './components/Home'
 import Header from './components/Header'
 import HeaderSignedIn from './components/HeaderSignedIn'
+import Post from './components/Post'
 import Footer from './components/Footer'
 import { connect } from 'react-redux';
 import { SignalWifiOffOutlined } from '@material-ui/icons';
@@ -25,27 +26,15 @@ class App extends React.Component {
           <HeaderSignedIn />
           <Switch >
             <Route path="/" component={Home} />
-            {/* <Route path='/Home/UserLoggedIn' render={()=>(this.props.isLoggedIn ? <Home /> : <Redirect to="/" />)}/> */}
+            {/* <Route path='/post' render={()=>(this.props.post ? <Post /> : <Redirect to="/" />)}/> */}
+            {this.props.post ? <Route path="/post" component={Post} /> : <Redirect to="/" />}
             {/* <Route path='/Home/UserLoggedIn' component={Footer} /> */}
           </Switch>
           <Footer />
         </BrowserRouter>
       )
     }
-    if(this.props.isLoggedOut){    
-    return (
-      <BrowserRouter>
-        <Header />
-        <Switch >
-          <Route path="/" component={Home} />
-          {/* <Route path='/Home/UserLoggedIn' render={()=>(this.props.isLoggedIn ? <Home /> : <Redirect to="/" />)}/> */}
-          {/* <Route path='/Home/UserLoggedIn' component={Footer} /> */}
-        </Switch>
-        <Footer />
-      </BrowserRouter>
-    )
 
-    }
 
    
     return (
@@ -53,7 +42,7 @@ class App extends React.Component {
         <Header />
         <Switch >
           <Route path="/" component={Home} />
-          {/* <Route path='/Home/UserLoggedIn' render={()=>(this.props.isLoggedIn ? <Home /> : <Redirect to="/" />)}/> */}
+          {/* <Route path='/Home/UserLoggedIn' render={()=>(this.props.post ? <Post /> : <Redirect to="/" />)}/> */}
           {/* <Route path='/Home/UserLoggedIn' component={Footer} /> */}
         </Switch>
         <Footer />
@@ -66,6 +55,7 @@ const mapStateToProps = (state) => ({
   // userName: state.auth.userName,
   isLoggedIn: state.auth.isLoggedIn,
   isLoggedOut: state.auth.isLoggedOut,
+  post: state.app.post
 })
 export default connect(mapStateToProps, null)(App);
 

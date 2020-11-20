@@ -1,6 +1,7 @@
 const INITIAL_STATE = {
     list: [<p></p>],
     loading: true,
+    post: false,
 }
 
 
@@ -11,6 +12,11 @@ export default (state = INITIAL_STATE, action) => {
             return ({
                 ...state,
                 list: [action.data]
+            })
+            case "PostClick":
+            return ({
+                ...state,
+                post: [action.data]
             })
         default:
             return state

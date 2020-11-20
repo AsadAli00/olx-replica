@@ -18,7 +18,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import firebase from '../config/firebase';
 import { connect } from 'react-redux'
-import { Is_Logged, AuthEmail, Is_LoggedOut, AuthName } from '../store/action';
+import { Is_Logged, AuthEmail, Is_LoggedOut, AuthName, PhoneSignedIn } from '../store/action';
 import { Redirect } from 'react-router-dom'
 import Home from './Home';
 
@@ -180,10 +180,10 @@ class Header extends React.Component {
             firebase.auth().signInWithPopup(provider).then((result) => {
                 // This gives you a Google Access Token. You can use it to access the Google API.
                 // var token = result.credential.accessToken;
-                if(result.user){
+                if (result.user) {
                     setTimeout(() => {
                         this.props.Is_Logged(true)
-                    },100)
+                    }, 100)
                     this.props.AuthEmail(result.user.email)
                     this.props.AuthName(result.user.displayName)
                 }
@@ -230,16 +230,16 @@ class Header extends React.Component {
                 // This gives you a Facebook Access Token. You can use it to access the Facebook API.
                 var token = result.credential.accessToken;
                 // The signed-in user info.
-                if(result.user){
+                if (result.user) {
                     setTimeout(() => {
                         this.props.Is_Logged(true)
-                    },100)
+                    }, 100)
                     this.props.AuthEmail(result.user.email)
                     this.props.AuthName(result.user.displayName)
                 }
                 var user = result.user;
                 // ...
-              }).catch(function(error) {
+            }).catch(function (error) {
                 // Handle Errors here.
                 var errorCode = error.code;
                 var errorMessage = error.message;
@@ -248,16 +248,16 @@ class Header extends React.Component {
                 // The firebase.auth.AuthCredential type that was used.
                 var credential = error.credential;
                 // ...
-              });
-              firebase.auth().getRedirectResult().then(function(result) {
+            });
+            firebase.auth().getRedirectResult().then(function (result) {
                 if (result.credential) {
-                  // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-                  var token = result.credential.accessToken;
-                  // ...
+                    // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+                    var token = result.credential.accessToken;
+                    // ...
                 }
                 // The signed-in user info.
                 var user = result.user;
-              }).catch(function(error) {
+            }).catch(function (error) {
                 // Handle Errors here.
                 var errorCode = error.code;
                 var errorMessage = error.message;
@@ -266,7 +266,31 @@ class Header extends React.Component {
                 // The firebase.auth.AuthCredential type that was used.
                 var credential = error.credential;
                 // ...
-              });
+            });
+        }
+        const SignInWithPhone = () => {
+            alert("This Services is not available Now");
+            // window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
+            //     'size': 'invisible',
+            //     'callback': function (response) {
+            //         // reCAPTCHA solved, allow signInWithPhoneNumber.
+            //         var phoneNumber = this.props.PhoneNumber;
+            //         var appVerifier = window.recaptchaVerifier;
+            //         firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
+            //         .then(function (confirmationResult) {
+            //             // SMS sent. Prompt user to type the code from the message, then sign the
+            //             // user in with confirmationResult.confirm(code).
+            //             window.confirmationResult = confirmationResult;
+            //             this.props.PhoneSignedIn(true)
+            //         }).catch(function (error) {
+            //             // Error; SMS not sent
+            //             // ...
+            //         });
+            //     }
+            // });
+           
+            
+
         }
         const nav = [
             { ID: 1, label: "Mobile Phones" },
@@ -380,34 +404,40 @@ class Header extends React.Component {
                     <div className="backBtn">
                         <ArrowBackIcon onClick={handlePhoneClose} />
                     </div>
-                    <form>
-                        <div className="phone">
-                            <div className="phoneLogo flex aic jcc">
-                                <img src={logo} alt="logo" width="50px" />
-                            </div>
-                            <div className="PhoneText color aic flex jcc">
-                                <h5 className="b font"><label for="phone">Enter your Phone</label></h5>
-                            </div>
-                            <div className="PhoneInput flex aic">
-                                <div className="fontl color p-2 s16 aic jcc">+92</div>
-                                <div className="phoneBreak"></div>
-                                <div className="Input">
-                                    <input type="tel" id="phone" name="phone" onChange={(e) => this.setState({
-                                        ...this.state,
-                                        PhoneNumber: e.target.value,
-                                    })} pattern="3[0-9]{2}[0-9]{7}" placeholder="Phone Number" className="Phoneinput s15 font" />
-                                </div>
-                            </div>
-                            <div className="Login flex aic jcc">
-                                <button className="fontr b anim s16" id="sign-in-button">
-                                    LogIn
-                                    </button>
-                            </div>
-                            <div className="phoneFooter font flex tac cb">
-                                <p className="s13">We won't reveal your phone number to anyone else nor use it to send you spam</p>
+                    <div className="phone">
+                        <div className="phoneLogo flex aic jcc">
+                            <img src={logo} alt="logo" width="50px" />
+                        </div>
+                        <div className="PhoneText color aic flex jcc">
+                            <h5 className="b font"><label for="phone">Enter your Phone</label></h5>
+                        </div>
+                        <div className="PhoneInput flex aic">
+                            <div className="fontl color p-2 s16 aic jcc">+92</div>
+                            <div className="phoneBreak"></div>
+                            <div className="Input">
+                                <input type="tel" id="phone" name="phone" onChange={(e) => this.setState({
+                                    ...this.state,
+                                    PhoneNumber: e.target.value,
+                                })} pattern="3[0-9]{2}[0-9]{7}" maxLength="10" placeholder="Phone Number" className="Phoneinput s15 font" />
                             </div>
                         </div>
-                    </form>
+                        {this.props.PhoneSignIn ? <div className="PhoneInput flex aic">
+                            <div className="Input">
+                                <input type="tel" id="phone" name="phone" maxLength="4" onChange={(e) => this.setState({
+                                    ...this.state,
+                                    PhoneNumber: e.target.value,
+                                })} pattern="4[0-9]" placeholder="Verify Code" className="Phoneinput s15 font" />
+                            </div>
+                        </div> : null}
+                        <div className="Login flex aic jcc" id="sign-in-button"onClick={SignInWithPhone}> 
+                            <button className="fontr b anim s16" >
+                                LogIn
+                                    </button>
+                        </div>
+                        <div className="phoneFooter font flex tac cb">
+                            <p className="s13">We won't reveal your phone number to anyone else nor use it to send you spam</p>
+                        </div>
+                    </div>
                 </div>
             </React.Fragment>
         );
@@ -576,6 +606,7 @@ const mapStateToProps = (state) => ({
     // email: state.auth.email,
     // userName: state.auth.userName,
     isLoggedIn: state.auth.isLoggedIn,
+    PhoneSignIn: state.auth.PhoneSignIn,
 })
 
 
@@ -584,7 +615,8 @@ const mapDispatchToMap = (dispatch) => ({
     Is_LoggedOut: (data) => dispatch(Is_LoggedOut(data)),
     Is_Logged: (data) => dispatch(Is_Logged(data)),
     AuthEmail: (data) => dispatch(AuthEmail(data)),
-    AuthName: (data) => dispatch(AuthName(data))
+    AuthName: (data) => dispatch(AuthName(data)),
+    PhoneSignedIn: (data) => dispatch(PhoneSignedIn(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToMap)(Header);
