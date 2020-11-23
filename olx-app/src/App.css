@@ -92,16 +92,26 @@
 
 .header .actions{ 
     flex: 1;
-    max-width: 170px;
+    max-width: 176px !important;
     align-items: flex-end;
     justify-content: flex-end;
 }
-.header .actions a{
+.header .actionsSignned{ 
+    flex: 1;
+    max-width: 300px !important;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+.header .actions div {
+    justify-content: center;
+
+}
+.header .actions a, .actionsSignned a{
     margin: 0px 20px 10px 0px;
     color: #002f34;
     margin-right: 15px;
 }
-.header .actions .sell{
+.header .actions .sell, .actionsSignned .sell{
     padding: 8px 15px;
     border: 3px #ffa500 solid;
     color:  #002f34;
@@ -110,7 +120,7 @@
     border-radius: 30px;
     box-shadow: 0px 3px 3px #a9a9a9;
 }
-.header .actions .ico{
+.header .actions .ico, .actionsSignned .ico{
     font-size: 22px;
 }
 .header .actions .sell:hover{}
@@ -491,7 +501,7 @@
     left: 39%;
 }
 .Avater{
-    margin-right: 20px;
+    margin: 0px 20px;
 }
 .avater-list{
     background: #fff;
@@ -517,3 +527,11 @@
     height: 100px;
 
 } */
+.ChatIcon{
+    padding: 5px;
+    margin-right: 5px;
+}
+.ChatIcon:hover{
+    background-color: #83e2dd;
+    border-radius: 30px;
+}

@@ -1,7 +1,7 @@
 const INITIAL_STATE = {
     list: [<p></p>],
     loading: true,
-    post: false,
+    redirect: null,
 }
 
 
@@ -13,10 +13,10 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 list: [action.data]
             })
-            case "PostClick":
+            case "RedirectClick":
             return ({
                 ...state,
-                post: [action.data]
+                redirect: [action.data]
             })
         default:
             return state

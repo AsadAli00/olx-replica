@@ -18,10 +18,12 @@ import CloseIcon from '@material-ui/icons/Close';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import firebase from '../config/firebase';
 import { connect } from 'react-redux'
-import { Is_Logged, Is_LoggedOut, PostClick } from '../store/action';
+import { Is_Logged, Is_LoggedOut, RedirectClick } from '../store/action';
 import { Redirect } from 'react-router-dom'
 import Home from './Home';
 import Avatar from '@material-ui/core/Avatar';
+import ChatBubbleOutlineOutlinedIcon from '@material-ui/icons/ChatBubbleOutlineOutlined';
+import NotificationsNoneOutlinedIcon from '@material-ui/icons/NotificationsNoneOutlined';
 
 class Header extends React.Component {
 
@@ -48,6 +50,9 @@ class Header extends React.Component {
 
 
     render() {
+        // if(this.props.redirect){
+        //     return <Redirect to={this.props.redirect} />
+        // }
 
         const handleClick = (event) => {
             this.setState({
@@ -76,8 +81,10 @@ class Header extends React.Component {
         };
         const open = Boolean(this.state.anchorEl);
         const id = open ? 'simple-popover' : undefined;
+
         const Avateropen = Boolean(this.state.anchorEl1);
         const Avaterid = Avateropen ? 'simple-popover' : undefined;
+
 
         const handleChange = (event) => {
             this.setState({
@@ -200,8 +207,7 @@ class Header extends React.Component {
                 });
         }
         const PostClick = () => {
-            this.props.PostClick(true);
-            console.log(this.props);
+            //    this.props.RedirectClick("/post")
         }
 
         const nav = [
@@ -268,13 +274,22 @@ class Header extends React.Component {
                             <SearchIcon className="go" style={{ fontSize: 30 }} />
                         </div>
                     </div>
-                    <div className="actions flex aic">
+                    <div className="actionsSignned flex aic">
+                        <Link className="m-0" to="/chat">
+                            <div className="ChatIcon aic">
+                                <ChatBubbleOutlineOutlinedIcon style={{ fontSize: 30 }}  />
+                            </div>
+                        </Link>
+                        <div className="ChatIcon aic">
+                                <NotificationsNoneOutlinedIcon style={{ fontSize: 30 }} />
+                            </div>
                         <div onClick={handleAvaterClick}>
-                            <Avatar className="Avater" >{emailLetter}</Avatar></div>
-                        <button className="sell flex aic" onClick={PostClick}>
+                            <Avatar className="Avater" >{emailLetter}</Avatar>
+                        </div>
+                        <Link to="/post" style={{ margin: "0" }}><button className="sell flex aic">
                             <AddIcon className="ico s24 fontb" />
                             <h2 className="s18 fontb">SELL</h2>
-                        </button>
+                        </button></Link>
 
                     </div>
                     <Popover
@@ -356,6 +371,7 @@ const mapStateToProps = (state) => ({
     AuthEmail: state.auth.authEmail,
     isLoggedOut: state.auth.isLoggedOut,
     AuthName: state.auth.authName,
+    redirect: state.app.redirect
 })
 
 
@@ -363,7 +379,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToMap = (dispatch) => ({
     Is_Logged: (data) => dispatch(Is_Logged(data)),
     Is_LoggedOut: (data) => dispatch(Is_LoggedOut(data)),
-    PostClick: (data) => dispatch(PostClick(data)),
+    RedirectClick: (data) => dispatch(RedirectClick(data)),
 })
 
 export default connect(mapStateToProps, mapDispatchToMap)(Header);

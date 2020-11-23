@@ -33,9 +33,9 @@ const PhoneSignedIn = (data)=>{
         dispatch({type:"PhoneSignedIn",data: data})
     }
 }
-const PostClick = (data)=>{
+const RedirectClick = (data)=>{
     return(dispatch)=>{
-        dispatch({type:"PostClick",data: data})
+        dispatch({type:"RedirectClick",data: data})
     }
 }
 // const set_Login = (data) => {
@@ -62,5 +62,5 @@ export{
     Is_LoggedOut,
     AuthName,
     PhoneSignedIn,
-    PostClick,
+    RedirectClick,
 }
