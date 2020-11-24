@@ -92,7 +92,7 @@
 
 .header .actions{ 
     flex: 1;
-    max-width: 176px !important;
+    max-width: 167px !important;
     align-items: flex-end;
     justify-content: flex-end;
 }

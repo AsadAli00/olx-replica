@@ -4,4 +4,39 @@
 }
 .main .head{
     margin-top: 30px;
+    color: #002f34;
+}
+.FormHead{
+    margin-left: 16.6666666667%;
+    width: 66.6666666667%;
+    height: 80vh;
+    flex-direction: column;
+    border: 1px solid rgba(0,47,52,.2);
+    margin-bottom: 20px;
+}
+.select-category{
+
+}
+.CategorySelect{
+    min-width: 170px !important;
+    color: #002f34 !important;
+}
+.Select-Empty{
+    margin-top: 2px;
+}
+.postBreker{
+    box-sizing: border-box;
+    border-bottom: 1px solid rgba(0,47,52,.2);
+    float: left;
+    height: 0;
+    width: 100%;
+}
+.SomeDetail{
+
+}
+.groupButton{
+
+}
+.toggleButton{
+
 }
