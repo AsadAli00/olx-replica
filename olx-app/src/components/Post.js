@@ -5,7 +5,7 @@ import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
-import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 class Post extends Component {
     constructor() {
@@ -37,12 +37,12 @@ class Post extends Component {
                 ...this.state,
                 ValueCondition: newAlignment
             })
-          };
-          const ToggelButtonStyle = () => {
-              <style>
+        };
+        const ToggelButtonStyle = () => {
+            <style>
 
-              </style>
-          }
+            </style>
+        }
 
         return (
             <div className="main">
@@ -89,12 +89,20 @@ class Post extends Component {
                                     aria-label="Condition Value"
                                     className="groupButton"
                                 >
-                                    <ToggleButton className="toggleButton"  value="new" aria-label="New Condition">New </ToggleButton>
+                                    <ToggleButton className="toggleButton" value="new" aria-label="New Condition">New </ToggleButton>
                                     <ToggleButton className="toggleButton" value="used" aria-label="Used Condition"> Used </ToggleButton>
                                 </ToggleButtonGroup>
                             </div>
 
                         </div>
+                        <div className="Type ml-4 mt-3">
+                            <label>Type *</label>
+                            <div>
+                            <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+                            </div>
+
+                        </div>
+
                     </div>
 
                 </div>
